@@ -178,22 +178,6 @@ let g:go_auto_popup_pos = 'popup'
 let g:go_auto_popup_max_height = 30
 " 设置代码提示弹出窗口的最大宽度
 let g:go_auto_popup_max_width = 80
-
-" 自动补全、代码补全
-" let g:go_auto_type_info = 1
-" let g:go_auto_sameids = 1
-" let g:go_auto_type_info_truncate = 500
-" let g:go_auto_type_info_delay = 100
-" let g:go_auto_type_info_maxwidth = 100
-" let g:go_auto_type_info_maxheight = 50
-" let g:go_auto_type_info_position = 'botright'
-" let g:go_auto_type_info_map_key = '<C-t>'
-" let g:go_auto_type_info_auto_open = 1
-" let g:go_auto_type_info_auto_close = 1
-" let g:go_auto_type_info_show_tab = 1
-" let g:go_auto_type_info_tab_width = 30
-" let g:go_auto_type_info_tab_color = 'Black'
-" let g:go_auto_type_info_highlight_color = 'Yellow'
 " ==============================End Golang===================================
 
 
