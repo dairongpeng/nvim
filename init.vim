@@ -22,30 +22,197 @@ set incsearch
 set nobackup
 set noswapfile
 
+" 禁用 Vim-indentline 插件，它会在文本编辑器中为每一行添加缩进线。
 let g:indentLine_enabled=0
 
 " golang configure ====> start
-let g:go_highlight_methods = 1                 
-let g:go_highlight_operators = 1    
-let g:go_highlight_build_constraints = 1    
+" 启用高亮显示 Golang 中的方法（method）
+let g:go_highlight_methods = 1
+" 启用高亮显示 Golang 中的运算符。
+let g:go_highlight_operators = 1
+" 启用高亮显示 Golang 中的构建约束（build constraints）。
+let g:go_highlight_build_constraints = 1
+" 每次保存文件时自动使用 go fmt 命令格式化代码。
 let g:go_fmt_autosave = 1
-let g:go_version_warning = 1    
-let g:go_autodetect_gopath = 1    
-let g:go_highlight_types = 1    
-let g:go_highlight_fields = 1    
-let g:go_highlight_functions = 1    
-let g:go_highlight_function_calls = 1                                             
-let g:go_highlight_extra_types = 1                                                               
-let g:go_highlight_generate_tags = 1    
+" 当使用过时的 Golang 版本时，给出警告提示。
+let g:go_version_warning = 1
+" 自动检测当前的 GOPATH 路径。
+let g:go_autodetect_gopath = 1
+" 启用高亮显示 Golang 中的类型（type）。
+let g:go_highlight_types = 1
+" 启用高亮显示 Golang 中的字段（field）。
+let g:go_highlight_fields = 1
+" 启用高亮显示 Golang 中的函数（function）。
+let g:go_highlight_functions = 1
+" 启用高亮显示 Golang 中的函数调用（function call）。
+let g:go_highlight_function_calls = 1
+" 启用高亮显示 Golang 中的额外类型（extra type）。
+let g:go_highlight_extra_types = 1
+" 启用自动生成 tags 文件。
+let g:go_highlight_generate_tags = 1
+" 使用 Golang 的 LSP 实现 gopls 作为导航定义的工具。
 let g:go_def_mode = 'gopls'
+" 启用 Golang 的 LSP 实现 gopls。
 let g:go_gopls_enabled = 1
+" 启用 Golang 的代码分析工具 guru。
 let g:go_guru_enabled = 1
-let g:go_fmt_experimental = 1    
-let g:go_def_mapping_enabled = 1    
-let g:go_build_tags = '-v'    
-let g:go_fmt_command = "goimports"                       
-let g:go_list_type = "quickfix"    
-let g:go_def_mapping_enable = 1
+" 启用 Golang 的实验性格式化代码命令。
+let g:go_fmt_experimental = 1
+" 启用 Golang 的导航定义映射（mapping）
+let g:go_def_mapping_enabled = 1
+" 指定在构建 Golang 项目时使用的 tags。
+let g:go_build_tags = '-v'
+" 指定使用的格式化命令为 goimports。
+let g:go_fmt_command = "goimports"
+" 指定在执行 :GoList 命令时使用的列表类型
+let g:go_list_type = "quickfix"
+
+" ============================Begin Golang===================================
+" 设置 Leader 键为英文逗号
+let mapleader = ","
+
+" 移动到行首、行尾
+nnoremap <leader>a 0
+nnoremap <leader>e $
+vnoremap <leader>a 0
+vnoremap <leader>e $
+
+" 在新窗口中打开当前文件
+nnoremap <leader>v :vsp <CR>
+nnoremap <leader>s :sp <CR>
+
+" 快速切换到最近的缓冲区
+nnoremap <leader>1 :b1<CR>
+nnoremap <leader>2 :b2<CR>
+nnoremap <leader>3 :b3<CR>
+nnoremap <leader>4 :b4<CR>
+nnoremap <leader>5 :b5<CR>
+nnoremap <leader>6 :b6<CR>
+nnoremap <leader>7 :b7<CR>
+nnoremap <leader>8 :b8<CR>
+nnoremap <leader>9 :b9<CR>
+
+" 复制、剪切、粘贴
+vnoremap <leader>y "+y
+vnoremap <leader>x "+x
+nnoremap <leader>p "+p
+
+" 启用行号，同时设置一个快捷键来开关行号
+set number
+nnoremap <leader>sn :set number!<CR>
+
+" 编译、运行当前文件
+nnoremap <leader>b :GoBuild<CR>
+nnoremap <leader>r :GoRun<CR>
+
+" 快速跳转到定义、引用、实现
+nnoremap <leader>gd :GoDef<CR>
+nnoremap <leader>gr :GoReferrers<CR>
+nnoremap <leader>gi :GoImplementations<CR>
+
+" 重命名标识符
+nnoremap <leader>rn :GoRename<CR>
+
+" 显示函数签名、函数定义
+nnoremap <leader>k :GoDoc<CR>
+nnoremap <leader>K :GoDefDoc<CR>
+
+" 自动格式化、静态检查、生成接口文档
+nnoremap <leader>f :GoFmt<CR>
+nnoremap <leader>l :GoLint<CR>
+nnoremap <leader>i :GoGenerate<CR>
+
+" 跳转到下一个/上一个错误或警告
+nnoremap <leader>en :lnext<CR>
+nnoremap <leader>ep :lprev<CR>
+
+" 显示当前函数的覆盖率
+nnoremap <leader>c :GoCoverage<CR>
+
+" 列出所有的符号
+nnoremap <leader>ls :GoSymbols<CR>
+
+" 生成并打开文档
+nnoremap <leader>god :GoDocBrowser<CR>
+
+" 将当前文件导出为HTML格式
+nnoremap <leader>goe :GoExport<CR>
+
+" 启动/关闭交互式命令行
+nnoremap <leader>gc :GoConsole<CR>
+nnoremap <leader>gC :GoCloseConsole<CR>
+
+" 显示、隐藏当前函数的测试文件
+nnoremap <leader>tu :GoTestFunc<CR>
+nnoremap <leader>tU :GoTestFuncs<CR>
+
+" 运行测试
+nnoremap <leader>tt :GoTest<CR>
+nnoremap <leader>t. :GoTestFuncCurrent<CR>
+
+" 跳转到测试文件或当前函数的测试
+nnoremap <leader>tn :GoTestNavigate<CR>
+
+" 显示、隐藏当前函数的基准测试
+nnoremap <leader>tb :GoBenchFunc<CR>
+nnoremap <leader>tB :GoBenchFuncs<CR>
+
+" 运行基准测试
+nnoremap <leader>tx :GoBench<CR>
+
+" 使用 gotags 生成 tags 文件
+nnoremap <leader>tg :GoGenerateTags<CR>
+
+" 在 quickfix 窗口中显示所有的错误或警告
+nnoremap <leader>qf :GoQuickFix<CR>
+
+" 启用 Vim-go 的代码提醒功能
+let g:go_completion_enabled = 1
+" 设置自动提示的延迟时间（单位为毫秒）
+let g:go_completion_auto_delay = 100
+" 设置代码提示的样式
+let g:go_auto_type_info = 1
+" 设置代码提示弹出窗口的位置为光标下方
+let g:go_auto_popup_pos = 'popup'
+" 设置代码提示弹出窗口的最大高度
+let g:go_auto_popup_max_height = 30
+" 设置代码提示弹出窗口的最大宽度
+let g:go_auto_popup_max_width = 80
+
+" 自动补全、代码补全
+" let g:go_auto_type_info = 1
+" let g:go_auto_sameids = 1
+" let g:go_auto_type_info_truncate = 500
+" let g:go_auto_type_info_delay = 100
+" let g:go_auto_type_info_maxwidth = 100
+" let g:go_auto_type_info_maxheight = 50
+" let g:go_auto_type_info_position = 'botright'
+" let g:go_auto_type_info_map_key = '<C-t>'
+" let g:go_auto_type_info_auto_open = 1
+" let g:go_auto_type_info_auto_close = 1
+" let g:go_auto_type_info_show_tab = 1
+" let g:go_auto_type_info_tab_width = 30
+" let g:go_auto_type_info_tab_color = 'Black'
+" let g:go_auto_type_info_highlight_color = 'Yellow'
+" ==============================End Golang===================================
+
+
+" ============================Begin NerdTree=================================
+" 打开/关闭 NERDTree 窗口
+nnoremap <leader>n :NERDTreeToggle<CR>
+" 打开 NERDTree 窗口，并将光标移动到当前文件所在的节点
+nnoremap <leader>nf :NERDTreeFind<CR>
+" 在 NERDTree 窗口中打开文件
+nnoremap <leader>no :NERDTreeFind<CR>
+" 在 NERDTree 窗口中刷新当前目录
+nnoremap <leader>nr :NERDTreeRefreshRoot<CR>
+" 在 NERDTree 窗口中上下移动光标
+nnoremap <C-j> :NERDTreeFocus<CR><C-w>j
+nnoremap <C-k> :NERDTreeFocus<CR><C-w>k
+" 在 NERDTree 窗口中打开文件时自动关闭 NERDTree 窗口
+let g:NERDTreeAutoClose = 1
+" ===========================END NerdTree===================================
+
 
 " 双击鼠标左键可以跳转到光标下符号的定义处。
 map <2-LeftMouse> :GoDef <CR>
