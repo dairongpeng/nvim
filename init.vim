@@ -132,12 +132,6 @@ nnoremap <leader>c :GoCoverage<CR>
 " 列出所有的符号
 nnoremap <leader>ls :GoSymbols<CR>
 
-" 生成并打开文档
-nnoremap <leader>god :GoDocBrowser<CR>
-
-" 将当前文件导出为HTML格式
-nnoremap <leader>goe :GoExport<CR>
-
 " 启动/关闭交互式命令行
 nnoremap <leader>gc :GoConsole<CR>
 nnoremap <leader>gC :GoCloseConsole<CR>
@@ -150,13 +144,6 @@ nnoremap <leader>tU :GoTestFuncs<CR>
 nnoremap <leader>tt :GoTest<CR>
 nnoremap <leader>t. :GoTestFuncCurrent<CR>
 
-" 跳转到测试文件或当前函数的测试
-nnoremap <leader>tn :GoTestNavigate<CR>
-
-" 显示、隐藏当前函数的基准测试
-nnoremap <leader>tb :GoBenchFunc<CR>
-nnoremap <leader>tB :GoBenchFuncs<CR>
-
 " 运行基准测试
 nnoremap <leader>tx :GoBench<CR>
 
@@ -165,6 +152,7 @@ nnoremap <leader>tg :GoGenerateTags<CR>
 
 " 在 quickfix 窗口中显示所有的错误或警告
 nnoremap <leader>qf :GoQuickFix<CR>
+
 
 " 启用 Vim-go 的代码提醒功能
 let g:go_completion_enabled = 1
