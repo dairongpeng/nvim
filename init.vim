@@ -4,7 +4,7 @@ set mouse=a " 激活鼠标使用
 set wrap " 自动换行
 set sw=4 " 设置软宽度
 set gdefault " 行内替换
-set showmatch " 高亮显示括号匹配    
+set showmatch " 高亮显示括号匹配
 set expandtab " 使用空格来替换 Tab
 set tabstop=4 " 设置 Tab 长度为 4 空格    
 set shiftwidth=4 " 设置自动缩进长度为 4 空格    
@@ -25,7 +25,6 @@ set noswapfile
 " 禁用 Vim-indentline 插件，它会在文本编辑器中为每一行添加缩进线。
 let g:indentLine_enabled=0
 
-" golang configure ====> start
 " 启用高亮显示 Golang 中的方法（method）
 let g:go_highlight_methods = 1
 " 启用高亮显示 Golang 中的运算符。
@@ -67,18 +66,20 @@ let g:go_fmt_command = "goimports"
 " 指定在执行 :GoList 命令时使用的列表类型
 let g:go_list_type = "quickfix"
 
-" ============================Begin Golang===================================
 " 设置 Leader 键为英文逗号
 let mapleader = ","
 
-" 移动到行首、行尾
+" ============================编辑器快捷键开始===================================
+" 编辑器相关命令移动到行首、行尾
 nnoremap <leader>a 0
 nnoremap <leader>e $
 vnoremap <leader>a 0
 vnoremap <leader>e $
 
 " 在新窗口中打开当前文件
+" 纵向
 nnoremap <leader>v :vsp <CR>
+" 横向
 nnoremap <leader>s :sp <CR>
 
 " 快速切换到最近的缓冲区
@@ -93,34 +94,51 @@ nnoremap <leader>8 :b8<CR>
 nnoremap <leader>9 :b9<CR>
 
 " 复制、剪切、粘贴
+" 需可视模式下键入v, 选中文本
 vnoremap <leader>y "+y
+" 需可视模式下键入v, 选中文本
 vnoremap <leader>x "+x
 nnoremap <leader>p "+p
+
+" 使用鼠标滚轮向上滚动时可以向上滚动文本。
+map <ScrollWheelUp> <C-Y>
+" 使用鼠标滚轮向下滚动时可以向下滚动文本。
+map <ScrollWheelDown> <C-E>
 
 " 启用行号，同时设置一个快捷键来开关行号
 set number
 nnoremap <leader>sn :set number!<CR>
+" ============================编辑器快捷键结束===================================
 
+" ===========================Begin Golang================================
 " 编译、运行当前文件
 nnoremap <leader>b :GoBuild<CR>
 nnoremap <leader>r :GoRun<CR>
-
-" 快速跳转到定义、引用、实现
-nnoremap <leader>gd :GoDef<CR>
-nnoremap <leader>gr :GoReferrers<CR>
-nnoremap <leader>gi :GoImplementations<CR>
-
-" 重命名标识符
-nnoremap <leader>rn :GoRename<CR>
-
-" 显示函数签名、函数定义
-nnoremap <leader>k :GoDoc<CR>
-nnoremap <leader>K :GoDefDoc<CR>
-
 " 自动格式化、静态检查、生成接口文档
 nnoremap <leader>f :GoFmt<CR>
 nnoremap <leader>l :GoLint<CR>
 nnoremap <leader>i :GoGenerate<CR>
+" 重命名标识符
+nnoremap <leader>rn :GoRename<CR>
+" 在 quickfix 窗口中显示所有的错误或警告
+nnoremap <leader>qf :GoQuickFix<CR>
+
+" 双击鼠标左键可以跳转到光标下符号的定义处。
+map <2-LeftMouse> :GoDef <CR>
+" 鼠标右键可以回退到上一个光标所在位置。
+map <RightMouse> :GoDefPop <CR>
+" 跳转到光标下符号的定义处。
+nnoremap <leader>gd :GoDef<CR>
+" 回退到上一个光标所在位置。
+nnoremap <leader>gp :GoDefPop<CR>
+" 跳转到引用处
+nnoremap <leader>gr :GoReferrers<CR>
+" 跳转到实现处
+nnoremap <leader>gi :GoImplements<CR>
+" 查找调用当前函数的函数列表。
+nnoremap <leader>gcr :GoCallers <CR>
+" 查找当前函数调用的函数列表。
+nnoremap <leader>gce :GoCallees <CR>
 
 " 跳转到下一个/上一个错误或警告
 nnoremap <leader>en :lnext<CR>
@@ -129,29 +147,16 @@ nnoremap <leader>ep :lprev<CR>
 " 显示当前函数的覆盖率
 nnoremap <leader>c :GoCoverage<CR>
 
-" 列出所有的符号
-nnoremap <leader>ls :GoSymbols<CR>
-
-" 启动/关闭交互式命令行
-nnoremap <leader>gc :GoConsole<CR>
-nnoremap <leader>gC :GoCloseConsole<CR>
-
 " 显示、隐藏当前函数的测试文件
 nnoremap <leader>tu :GoTestFunc<CR>
 nnoremap <leader>tU :GoTestFuncs<CR>
-
 " 运行测试
 nnoremap <leader>tt :GoTest<CR>
 nnoremap <leader>t. :GoTestFuncCurrent<CR>
-
 " 运行基准测试
 nnoremap <leader>tx :GoBench<CR>
-
 " 使用 gotags 生成 tags 文件
 nnoremap <leader>tg :GoGenerateTags<CR>
-
-" 在 quickfix 窗口中显示所有的错误或警告
-nnoremap <leader>qf :GoQuickFix<CR>
 
 
 " 启用 Vim-go 的代码提醒功能
@@ -184,44 +189,6 @@ nnoremap <C-k> :NERDTreeFocus<CR><C-w>k
 " 在 NERDTree 窗口中打开文件时自动关闭 NERDTree 窗口
 let g:NERDTreeAutoClose = 1
 " ===========================END NerdTree===================================
-
-
-" 双击鼠标左键可以跳转到光标下符号的定义处。
-map <2-LeftMouse> :GoDef <CR>
-" 鼠标右键可以回退到上一个光标所在位置。
-map <RightMouse> :GoDefPop <CR>
-" 按下 Ctrl+N 可以查找调用当前函数的函数列表。
-map <C-N> :GoCallers <CR>
-" 按下 Ctrl+M 可以查找当前函数调用的函数列表。
-map <C-M> :GoCallees <CR>
-" 使用鼠标滚轮向上滚动时可以向上滚动文本。
-map <ScrollWheelUp> <C-Y>
-" 使用鼠标滚轮向下滚动时可以向下滚动文本。
-map <ScrollWheelDown> <C-E>
-" 取消回车键的默认映射。
-unmap <CR>
-" 按下回车键可以跳转到光标下符号的定义处。
-map <CR> :GoDef <CR>
-" 按下 Ctrl+I 可以回退到上一个光标所在位置。
-map <C-I> :GoDefPop <CR>
-" 按下 Shift+K 可以查看光标下符号的文档。
-map <S-K> :GoDoc<cr>
-" 按下 Shift+M 可以查看光标下符号的类型信息。
-map <S-M> :GoInfo<cr>
-" 按下 Shift+T 可以查看光标下符号的类型定义。
-map <S-T> :GoDefType<cr>
-" 按下 Shift+L 可以给结构体添加标签。
-map <S-L> :GoAddTag<cr>
-" 按下 Shift+P 可以查找实现当前接口的类型列表。
-map <S-P> :GoImplements<cr>
-" 按下 Shift+R 可以重命名光标下符号。
-map <S-R> :GoRename<cr>
-" 按下 Shift+F 可以根据结构体类型自动填充默认值。
-map <S-F> :GoFillStruct<cr>
-" 按下 Shift+C 可以查找当前函数调用的函数列表。
-map <S-C> :GoCallers<cr>
-" 按下 Shift+H 可以切换相同符号的高亮显示。
-map <S-H> :GoSameIdsToggle<cr>
 
 " 定义自动命令组, 名称为go
 augroup go
@@ -282,4 +249,3 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-" golang configure ====> end
