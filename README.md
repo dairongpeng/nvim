@@ -26,7 +26,7 @@
 ## 下载vim-go需要的二进制
 键入`nvim test.go`, 进入Normal模式，执行:GoInstallBinaries，等待安装完成
 
-## vim
+## vim ide write golang
 
 ### 安装vim8+
 ```shell
